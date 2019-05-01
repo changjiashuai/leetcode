@@ -1,5 +1,7 @@
 package com.changjiashuai.demo
 
+import kotlin.math.min
+
 /**
  * changjiashuai@gmail.com.
  *
@@ -297,5 +299,39 @@ class KSum {
             }
         }
         return list
+    }
+
+    /**
+     *  给定一个包括 n 个整数的数组 nums 和 一个目标值 target。
+     *  找出 nums 中的三个整数，使得它们的和与 target 最接近。
+     *  返回这三个数的和。假定每组输入只存在唯一答案。
+     *
+     *  eg:
+     *  给定数组 nums = [-1，2，1，-4], 和 target = 1.
+     *  与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).
+     */
+    fun threeSumClosest(nums: IntArray, target: Int): Int {
+        return threeSumClosest1(nums, target)
+    }
+
+    /**
+     * 暴力法
+     */
+    private fun threeSumClosest1(nums: IntArray, target: Int): Int {
+        var minValue = Int.MAX_VALUE
+        val map = hashMapOf<Int, Int>()
+        var sum = 0
+        for (i in 0 until nums.size) {
+            for (j in i + 1 until nums.size) {
+                for (k in j + 1 until nums.size) {
+                    sum = nums[i] + nums[j] + nums[k]
+                    map[Math.abs(sum- target)] = sum
+                }
+            }
+        }
+        map.forEach { (k, v) ->
+            minValue = min(k, minValue)
+        }
+        return map[minValue] ?: throw IllegalArgumentException("Can't reached this")
     }
 }

@@ -45,4 +45,10 @@ class KSumTest {
         val list = kSum.fourSum(intArrayOf(-3, -1, 0, 2, 4), 0)
         println("result: $list")
     }
+
+    @Test
+    fun threeSumClosest() {
+        val list = kSum.threeSumClosest(intArrayOf(-1, 2, 1, -4), 1)
+        println("result: $list")
+    }
 }
