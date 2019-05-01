@@ -140,9 +140,72 @@ class KSum {
         return list.distinct()
     }
 
+    /**
+     * A
+     * ------------------>
+     *  L---------------R
+     *
+     *  A
+     * ------------------>
+     *   L--------------R
+     *   A
+     * ------------------>
+     *    L-------------R
+     *    A
+     * ------------------>
+     *     L------------R
+     * ......
+     *                A
+     * ------------------>
+     *                 LR
+     *
+     */
     private fun threeSum2(nums: IntArray): List<List<Int>> {
         val list = arrayListOf<List<Int>>()
-
+        //排序
+        nums.sort()
+        //固定当前数字，两端移动查找
+        for (i in 0 until nums.size - 2) {
+            //去除重复数字
+            if (i == 0 || (i > 0 && nums[i] != nums[i - 1])) {
+                var left = i+ 1
+                var right = nums.size - 1
+                while (left < right) {
+                    val target = nums[i]
+                    val current = nums[left] + target + nums[right]
+                    if (current == 0) {
+                        val targetList = listOf(nums[left], nums[i], nums[right])
+                        list.add(targetList)
+                        left = leftMove(left, right, nums)
+                        right = rightMove(left, right, nums)
+                        left += 1
+                        right -= 1
+                    } else if (current < 0) {
+                        left = leftMove(left, right, nums)
+                        left += 1
+                    } else {
+                        right = rightMove(left, right, nums)
+                        right -= 1
+                    }
+                }
+            }
+        }
         return list
+    }
+
+    private fun rightMove(left: Int, right: Int, nums: IntArray): Int {
+        var right1 = right
+        while (left < right1 && nums[right1] == nums[right1 - 1]) {
+            right1 -= 1
+        }
+        return right1
+    }
+
+    private fun leftMove(left: Int, right: Int, nums: IntArray): Int {
+        var left1 = left
+        while (left1 < right && nums[left1] == nums[left1 + 1]) {
+            left1 += 1
+        }
+        return left1
     }
 }

@@ -20,7 +20,7 @@ class KSumTest {
 
     @Test
     fun threeSum() {
-        val list = kSum.threeSum(intArrayOf(-1, 0, 1, 2, -1, -4))
+        val list = kSum.threeSum(intArrayOf(-1, 2, -1))
         println("result: $list")
     }
 
@@ -33,7 +33,7 @@ class KSumTest {
     }
 
     @Test
-    fun twoSumForRepeat(){
+    fun twoSumForRepeat() {
         val nums = intArrayOf(3, 3)
         val target = 6
         val result = kSum.twoSum(nums, target)
