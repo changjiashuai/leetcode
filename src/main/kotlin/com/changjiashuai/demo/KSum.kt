@@ -102,29 +102,47 @@ class KSum {
     /**
      * 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？
      * 找出所有满足条件且不重复的三元组。
+     *
+     * 注意：答案中不可以包含重复的三元组。
+     *
+     * eg:
+     * 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+     *
+     * 满足要求的三元组集合为：
+     * [
+     *  [-1, 0, 1],
+     *  [-1, -1, 2]
+     * ]
      */
     fun threeSum(nums: IntArray): List<List<Int>> {
+        return threeSum2(nums)
+    }
+
+    /**
+     * 暴力法
+     *
+     * 注意：输入数组过长，会导致超时
+     */
+    private fun threeSum1(nums: IntArray): List<List<Int>> {
         nums.sort()
         val list = arrayListOf<List<Int>>()
-        for (i in 1..nums.size - 3) {
-            var j = i
-            if (nums[i] == nums[i - 1]) {
-                j++
-            }
-            var k = nums.size - 1
-            if (nums[k - 1] == nums[k]) {
-                k--
-            }
-            var current = nums[i] + nums[i - 1] + nums[k]
-            if (current == 0) {
-                val temp = listOf<Int>(nums[i - 1], nums[i], nums[k])
-                list.add(temp)
-            } else if (current < 0) {
-                j++
-            } else {
-                k--
+        for (i in 0 until nums.size) {
+            for (j in i + 1 until nums.size) {
+                for (k in j + 1 until nums.size) {
+                    val target = nums[i] + nums[j] + nums[k]
+                    if (target == 0) {
+                        val temp = listOf(nums[i], nums[j], nums[k])
+                        list.add(temp)
+                    }
+                }
             }
         }
+        return list.distinct()
+    }
+
+    private fun threeSum2(nums: IntArray): List<List<Int>> {
+        val list = arrayListOf<List<Int>>()
+
         return list
     }
 }

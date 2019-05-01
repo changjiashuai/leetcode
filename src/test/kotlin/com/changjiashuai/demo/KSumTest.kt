@@ -21,7 +21,7 @@ class KSumTest {
     @Test
     fun threeSum() {
         val list = kSum.threeSum(intArrayOf(-1, 0, 1, 2, -1, -4))
-        println(list)
+        println("result: $list")
     }
 
     @Test
