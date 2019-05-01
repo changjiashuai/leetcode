@@ -42,7 +42,7 @@ class KSumTest {
 
     @Test
     fun fourSum() {
-        val list = kSum.fourSum(intArrayOf(1, 0, -1, 0, -2, 2), 0)
+        val list = kSum.fourSum(intArrayOf(-3, -1, 0, 2, 4), 0)
         println("result: $list")
     }
 }

@@ -228,7 +228,7 @@ class KSum {
      *  ]
      */
     fun fourSum(nums: IntArray, target: Int): List<List<Int>> {
-        return fourSum1(nums, target)
+        return fourSum2(nums, target)
     }
 
     /**
@@ -250,5 +250,52 @@ class KSum {
             }
         }
         return list.distinct()
+    }
+
+    private fun fourSum2(nums: IntArray, target: Int): List<List<Int>> {
+        val list = arrayListOf<List<Int>>()
+        nums.sort()
+        for (i in 0 until nums.size - 3) {
+            //去重
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue
+            }
+            val newTarget = target - nums[i]
+            //三数之和
+            for (j in i + 1 until nums.size - 2) {
+                //去重
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue
+                }
+                var left = j + 1
+                var right = nums.size - 1
+                while (left < right) {
+                    val current = nums[j] + nums[left] + nums[right]
+                    if (current == newTarget) {
+                        val tempList = listOf(nums[i], nums[j], nums[left], nums[right])
+                        list.add(tempList)
+                        while (left < right && nums[left] == nums[left + 1]) {
+                            left += 1
+                        }
+                        while (left < right && nums[right] == nums[right - 1]) {
+                            right -= 1
+                        }
+                        left += 1
+                        right -= 1
+                    } else if (current < newTarget) {
+                        while (left < right && nums[left] == nums[left + 1]) {
+                            left += 1
+                        }
+                        left += 1
+                    } else {
+                        while (left < right && nums[right] == nums[right - 1]) {
+                            right -= 1
+                        }
+                        right -= 1
+                    }
+                }
+            }
+        }
+        return list
     }
 }
