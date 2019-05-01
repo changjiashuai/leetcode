@@ -39,4 +39,10 @@ class KSumTest {
         val result = kSum.twoSum(nums, target)
         println("result: ${result.toList()}")
     }
+
+    @Test
+    fun fourSum() {
+        val list = kSum.fourSum(intArrayOf(1, 0, -1, 0, -2, 2), 0)
+        println("result: $list")
+    }
 }
