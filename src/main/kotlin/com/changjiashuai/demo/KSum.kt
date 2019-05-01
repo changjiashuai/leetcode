@@ -22,7 +22,7 @@ class KSum {
      *
      */
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        return twoSum3(nums, target)
+        return twoSum4(nums, target)
     }
 
     @Deprecated("error example")
@@ -76,6 +76,25 @@ class KSum {
                 val j = map[key] ?: continue
                 return intArrayOf(i, j)
             }
+        }
+        throw IllegalArgumentException("No two sum solution")
+    }
+
+    /**
+     * 一遍哈希表
+     *
+     * 在进行迭代并将元素插入到表中的同时，我们还会回过头来检查表中是否已经存在当前元素所对应的目标元素。
+     * 如果它存在，那我们已经找到了对应解，并立即将其返回。
+     */
+    private fun twoSum4(nums: IntArray, target: Int): IntArray {
+        val map = hashMapOf<Int, Int>()
+        for (i in 0 until nums.size) {
+            val key = target - nums[i]
+            if (map.containsKey(key)) {
+                val j = map[key] ?: continue
+                return intArrayOf(j, i)
+            }
+            map[nums[i]] = i
         }
         throw IllegalArgumentException("No two sum solution")
     }
