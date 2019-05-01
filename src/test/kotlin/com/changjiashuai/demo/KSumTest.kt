@@ -31,4 +31,12 @@ class KSumTest {
         val result = kSum.twoSum(nums, target)
         println("result: ${result.toList()}")
     }
+
+    @Test
+    fun twoSumForRepeat(){
+        val nums = intArrayOf(3, 3)
+        val target = 6
+        val result = kSum.twoSum(nums, target)
+        println("result: ${result.toList()}")
+    }
 }

@@ -22,7 +22,7 @@ class KSum {
      *
      */
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        return twoSum2(nums, target)
+        return twoSum3(nums, target)
     }
 
     @Deprecated("error example")
@@ -42,6 +42,8 @@ class KSum {
     }
 
     /**
+     * 暴力法
+     *
      * 暴力法很简单。遍历每个元素 x，并查找是否存在一个值与 target−x 相等的目标元素。
      */
     private fun twoSum2(nums: IntArray, target: Int): IntArray {
@@ -55,8 +57,26 @@ class KSum {
         throw IllegalArgumentException("No two sum solution")
     }
 
+    /**
+     * 两遍哈希表
+     *
+     * 一个简单的实现使用了两次迭代。
+     * 在第一次迭代中，我们将每个元素的值和它的索引添加到表中。
+     * 然后，在第二次迭代中，我们将检查每个元素所对应的目标元素（target−nums[i]）是否存在于表中。
+     * 注意，该目标元素不能是 nums[i] 本身！
+     */
     private fun twoSum3(nums: IntArray, target: Int): IntArray {
-        
+        val map = hashMapOf<Int, Int>()
+        for (i in 0 until nums.size) {
+            map[nums[i]] = i
+        }
+        for (i in 0 until nums.size) {
+            val key = target - nums[i]
+            if (map.containsKey(key) && map[key] != i) {
+                val j = map[key] ?: continue
+                return intArrayOf(i, j)
+            }
+        }
         throw IllegalArgumentException("No two sum solution")
     }
 
